@@ -1,77 +1,127 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Peter Meilstrup" />
 
-<meta name="date" content="2018-01-03" />
+<meta name="date" content="2022-05-04" />
 
 <title>The ‘memo’ package</title>
 
 
-
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource div.sourceLine, .numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em; }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
 @media screen {
-a.sourceLine::before { text-decoration: underline; color: initial; }
+a.sourceLine::before { text-decoration: underline; }
 }
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
 code span.dt { color: #902000; } /* DataType */
 code span.dv { color: #40a070; } /* DecVal */
-code span.bn { color: #40a070; } /* BaseN */
-code span.fl { color: #40a070; } /* Float */
-code span.ch { color: #4070a0; } /* Char */
-code span.st { color: #4070a0; } /* String */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.ot { color: #007020; } /* Other */
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.fu { color: #06287e; } /* Function */
 code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code span.cn { color: #880000; } /* Constant */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.im { } /* Import */
-code span.va { color: #19177c; } /* Variable */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.op { color: #666666; } /* Operator */
-code span.bu { } /* BuiltIn */
 code span.ex { } /* Extension */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.at { color: #7d9029; } /* Attribute */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
 
 
 
@@ -85,9 +135,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -256,8 +303,12 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
+
+
+
 
 </head>
 
@@ -267,86 +318,98 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">The ‘memo’ package</h1>
-<h4 class="author"><em>Peter Meilstrup</em></h4>
-<h4 class="date"><em>2018-01-03</em></h4>
+<h4 class="author">Peter Meilstrup</h4>
+<h4 class="date">2022-05-04</h4>
 
 
 
-<section id="memo" class="level1">
+<div id="memo" class="section level1">
 <h1>#memo</h1>
-<p>The <code>memo</code> package implements a simple in-memory cache for the results of repeated computations.</p>
-<section id="fibonnacci-example" class="level2">
+<p>The <code>memo</code> package implements a simple in-memory cache for the results of a function. If you have an expensive function that is being called repeatedly with the same inputs, <code>memo</code> can help.</p>
+<div id="fibonnacci-example" class="section level2">
 <h2>Fibonnacci example</h2>
-<p>Consider this terrible way to compute the Fibonnacci sequence:</p>
-<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><div class="sourceLine" id="cb1-1" data-line-number="1">fib &lt;-<span class="st"> </span><span class="cf">function</span>(n) <span class="cf">if</span> (n <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="dv">1</span> <span class="cf">else</span> <span class="kw">fib</span>(n<span class="dv">-1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">fib</span>(n<span class="dv">-2</span>)</div></code></pre>
-<p>This function is very slow to compute larger values. Each call to <code>fib(n)</code> with <code>n &gt; 1</code> generates two more calls to <code>fib</code>, leading to a runtime complexity of <code>O(2^n)</code>. Let’s count how many recursive calls to <code>fib</code> are involved in computing each <code>fib(n)</code>:</p>
-<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><div class="sourceLine" id="cb2-1" data-line-number="1">count.calls &lt;-<span class="st"> </span><span class="cf">function</span>(f) {</div>
-<div class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw">force</span>(f)</div>
-<div class="sourceLine" id="cb2-3" data-line-number="3">  <span class="cf">function</span>(...) {</div>
-<div class="sourceLine" id="cb2-4" data-line-number="4">    count &lt;&lt;-<span class="st"> </span>count<span class="op">+</span><span class="dv">1</span>;</div>
-<div class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw">f</span>(...)</div>
-<div class="sourceLine" id="cb2-6" data-line-number="6">  }</div>
-<div class="sourceLine" id="cb2-7" data-line-number="7">}</div>
-<div class="sourceLine" id="cb2-8" data-line-number="8"></div>
-<div class="sourceLine" id="cb2-9" data-line-number="9">with_count &lt;-<span class="st"> </span><span class="cf">function</span>(f) {</div>
-<div class="sourceLine" id="cb2-10" data-line-number="10">  <span class="kw">force</span>(f)</div>
-<div class="sourceLine" id="cb2-11" data-line-number="11">  <span class="cf">function</span>(x) {</div>
-<div class="sourceLine" id="cb2-12" data-line-number="12">    count &lt;&lt;-<span class="st"> </span><span class="dv">0</span></div>
-<div class="sourceLine" id="cb2-13" data-line-number="13">    <span class="kw">c</span>(<span class="dt">n=</span>x, <span class="dt">result=</span><span class="kw">f</span>(x), <span class="dt">calls=</span>count)</div>
-<div class="sourceLine" id="cb2-14" data-line-number="14">  }</div>
-<div class="sourceLine" id="cb2-15" data-line-number="15">}</div>
-<div class="sourceLine" id="cb2-16" data-line-number="16"></div>
-<div class="sourceLine" id="cb2-17" data-line-number="17">fib &lt;-<span class="st"> </span><span class="kw">count.calls</span>(fib)</div>
-<div class="sourceLine" id="cb2-18" data-line-number="18"></div>
-<div class="sourceLine" id="cb2-19" data-line-number="19"><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="kw">with_count</span>(fib)))</div></code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">fib &lt;-<span class="st"> </span><span class="cf">function</span>(n) <span class="cf">if</span> (n <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="dv">1</span> <span class="cf">else</span> <span class="kw">fib</span>(n<span class="dv">-1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">fib</span>(n<span class="dv">-2</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">sapply</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">9</span>, fib)</a></code></pre></div>
+<pre><code>##  [1]  1  1  2  3  5  8 13 21 34 55</code></pre>
+<p>This recursive implementation corresponds closely to the way the sequence is defined in math texts, but it has a performance problem. The problem is that as you ask for values further down the sequence, the computation becomes inordinately slow due to recursion. To demonstrate the issue, we can try counting every time <code>fib</code> is called:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">count &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-2" title="2">fib &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb3-3" title="3">  count &lt;&lt;-<span class="st"> </span>count<span class="op">+</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="cf">if</span> (n <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="dv">1</span> <span class="cf">else</span> <span class="kw">fib</span>(n<span class="dv">-1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">fib</span>(n<span class="dv">-2</span>)</a>
+<a class="sourceLine" id="cb3-5" title="5">}</a>
+<a class="sourceLine" id="cb3-6" title="6"></a>
+<a class="sourceLine" id="cb3-7" title="7">counted_fib &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb3-8" title="8">  count &lt;&lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-9" title="9">  <span class="kw">c</span>(<span class="dt">n=</span>n, <span class="dt">result=</span><span class="kw">fib</span>(n), <span class="dt">calls=</span>count)</a>
+<a class="sourceLine" id="cb3-10" title="10">}</a>
+<a class="sourceLine" id="cb3-11" title="11"></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">16</span>, counted_fib))</a></code></pre></div>
 <pre><code>##        n result calls
-##  [1,]  1      1     1
-##  [2,]  2      2     3
-##  [3,]  3      3     5
-##  [4,]  4      5     9
-##  [5,]  5      8    15
-##  [6,]  6     13    25
-##  [7,]  7     21    41
-##  [8,]  8     34    67
-##  [9,]  9     55   109
-## [10,] 10     89   177
-## [11,] 11    144   287
-## [12,] 12    233   465
-## [13,] 13    377   753
-## [14,] 14    610  1219
-## [15,] 15    987  1973
-## [16,] 16   1597  3193</code></pre>
-<p>The number of calls increases unreasonably. This is because, say, <code>fib(6)</code> calls both <code>fib(5)</code> and <code>fib(4)</code>, but <code>fib(5)</code> also calls <code>fib(4)</code>, so the second computation is wasted work, and this gets worse the higher <code>n</code> you have. We would be in better shape if later invocations of <code>fib</code> could access the values that were previously computed.</p>
-<p>By wrapping <code>fib</code> using <code>memo</code>, fewer calls are made:</p>
-<pre class="sourceCode r" id="cb4"><code class="sourceCode r"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(memo)</div>
-<div class="sourceLine" id="cb4-2" data-line-number="2">fib &lt;-<span class="st"> </span><span class="kw">memo</span>(fib)</div>
-<div class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="kw">with_count</span>(fib)))</div></code></pre>
-<pre><code>##        n result calls
-##  [1,]  1      1     1
-##  [2,]  2      2     3
-##  [3,]  3      3     2
-##  [4,]  4      5     2
-##  [5,]  5      8     2
-##  [6,]  6     13     2
-##  [7,]  7     21     2
-##  [8,]  8     34     2
-##  [9,]  9     55     2
-## [10,] 10     89     2
-## [11,] 11    144     2
-## [12,] 12    233     2
-## [13,] 13    377     2
-## [14,] 14    610     2
-## [15,] 15    987     2
-## [16,] 16   1597     2</code></pre>
-<p>Here is only called to compute new values. Note that <code>fib(16)</code> only took two calls to compute, because <code>fib(15)</code> was previously computed. To compute <code>fib(16)</code> <em>de novo</em> takes 17 calls:</p>
-<pre class="sourceCode r" id="cb6"><code class="sourceCode r"><div class="sourceLine" id="cb6-1" data-line-number="1">fib &lt;-<span class="st"> </span><span class="cf">function</span>(n) <span class="cf">if</span> (n <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="dv">1</span> <span class="cf">else</span> <span class="kw">fib</span>(n<span class="dv">-1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">fib</span>(n<span class="dv">-2</span>)</div>
-<div class="sourceLine" id="cb6-2" data-line-number="2">fib &lt;-<span class="st"> </span><span class="kw">memo</span>(<span class="kw">count.calls</span>(fib))</div>
-<div class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">with_count</span>(fib)(<span class="dv">16</span>)</div></code></pre>
+##  [1,]  0      1     1
+##  [2,]  1      1     1
+##  [3,]  2      2     3
+##  [4,]  3      3     5
+##  [5,]  4      5     9
+##  [6,]  5      8    15
+##  [7,]  6     13    25
+##  [8,]  7     21    41
+##  [9,]  8     34    67
+## [10,]  9     55   109
+## [11,] 10     89   177
+## [12,] 11    144   287
+## [13,] 12    233   465
+## [14,] 13    377   753
+## [15,] 14    610  1219
+## [16,] 15    987  1973
+## [17,] 16   1597  3193</code></pre>
+<p>The number of calls increases unreasonably. This is because, for instance, <code>fib(6)</code> calls both <code>fib(5)</code> and <code>fib(4)</code>, but <code>fib(5)</code> also calls <code>fib(4)</code>. The second call to <code>fib(4)</code> is wasted work. And this pattern goes on – the two calls to <code>fib(4)</code> lead to <em>four</em> calls to <code>fib(2)</code>. Every time you increment <code>n</code> by one, the number of calls roughly doubles. (Clearly, there are more efficient algorithms for computing the Fibbonacci sequence, but this is a toy example, where <code>fib</code> stands in for some expensive function that is being called repeatedly.)</p>
+<p>One way to cut down on wasted effort would be to check whether <code>fib(n)</code> has already been computed for a given <code>n</code>. If it has, <code>fib</code> can just return that value instead of starting over. This is called “memoizing.” The <code>memo</code> package can <a href="https://en.wikipedia.org/wiki/Memoization#Automatic_memoization">automatically</a> create a memoized version of a given function, just by wrapping the function definition in <code>memo()</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">library</span>(memo)</a>
+<a class="sourceLine" id="cb5-2" title="2"></a>
+<a class="sourceLine" id="cb5-3" title="3">count &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb5-4" title="4">fib &lt;-<span class="st"> </span><span class="kw">memo</span>(<span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb5-5" title="5">  count &lt;&lt;-<span class="st"> </span>count<span class="op">+</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb5-6" title="6">  <span class="cf">if</span> (n <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="dv">1</span> <span class="cf">else</span> <span class="kw">fib</span>(n<span class="dv">-1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">fib</span>(n<span class="dv">-2</span>)</a>
+<a class="sourceLine" id="cb5-7" title="7">})</a>
+<a class="sourceLine" id="cb5-8" title="8"></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="kw">counted_fib</span>(<span class="dv">16</span>)</a></code></pre></div>
 <pre><code>##      n result  calls 
 ##     16   1597     17</code></pre>
-</section>
-</section>
+<p>Now, computing <code>fib(16)</code> only takes 17 calls. And if we call again, it remembers the previous answer and doesn’t make any new calls:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">counted_fib</span>(<span class="dv">16</span>)</a></code></pre></div>
+<pre><code>##      n result  calls 
+##     16   1597      0</code></pre>
+<p>Each successive value then only takes two calls:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">17</span><span class="op">:</span><span class="dv">30</span>, counted_fib))</a></code></pre></div>
+<pre><code>##        n  result calls
+##  [1,] 17    2584     1
+##  [2,] 18    4181     2
+##  [3,] 19    6765     2
+##  [4,] 20   10946     2
+##  [5,] 21   17711     2
+##  [6,] 22   28657     2
+##  [7,] 23   46368     2
+##  [8,] 24   75025     2
+##  [9,] 25  121393     2
+## [10,] 26  196418     2
+## [11,] 27  317811     2
+## [12,] 28  514229     2
+## [13,] 29  832040     2
+## [14,] 30 1346269     2</code></pre>
+<p>The tradeoff for this speedup is the memory used to store previous results. By default <code>memo</code> will remember the 5000 most recently used results; to adjust that limit you can change the <code>cache</code> option:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">fib &lt;-<span class="st"> </span><span class="kw">memo</span>(<span class="dt">cache=</span><span class="kw">lru_cache</span>(<span class="dv">5000</span>), <span class="cf">function</span> () {...})</a></code></pre></div>
+<p>The Fibonacci sequence being kind of a toy example, memoization has a variety of uses, such as:</p>
+<ul>
+<li>Caching the results of expensive database queries, for instance in Shiny apps where many users may make identical queries.</li>
+<li>Algorithms for path finding (dynamic programming) and parsing.</li>
+<li>Simulations such as <a href="https://en.wikipedia.org/wiki/Hashlife">Cellular automata</a>.</li>
+</ul>
+</div>
+</div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

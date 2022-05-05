@@ -1,34 +1,41 @@
-## ------------------------------------------------------------------------
+## ----include=FALSE------------------------------------------------------------
+knitr::opts_chunk$set(cache=FALSE)
+
+## -----------------------------------------------------------------------------
 fib <- function(n) if (n <= 1) 1 else fib(n-1) + fib(n-2)
+sapply(0:9, fib)
 
-## ------------------------------------------------------------------------
-count.calls <- function(f) {
-  force(f)
-  function(...) {
-    count <<- count+1;
-    f(...)
-  }
+## -----------------------------------------------------------------------------
+count <- 0
+fib <- function(n) {
+  count <<- count+1
+  if (n <= 1) 1 else fib(n-1) + fib(n-2)
 }
 
-with_count <- function(f) {
-  force(f)
-  function(x) {
-    count <<- 0
-    c(n=x, result=f(x), calls=count)
-  }
+counted_fib <- function(n) {
+  count <<- 0
+  c(n=n, result=fib(n), calls=count)
 }
 
-fib <- count.calls(fib)
+t(sapply(0:16, counted_fib))
 
-t(sapply(1:16, with_count(fib)))
-
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(memo)
-fib <- memo(fib)
-t(sapply(1:16, with_count(fib)))
 
-## ------------------------------------------------------------------------
-fib <- function(n) if (n <= 1) 1 else fib(n-1) + fib(n-2)
-fib <- memo(count.calls(fib))
-with_count(fib)(16)
+count <- 0
+fib <- memo(function(n) {
+  count <<- count+1
+  if (n <= 1) 1 else fib(n-1) + fib(n-2)
+})
+
+counted_fib(16)
+
+## -----------------------------------------------------------------------------
+counted_fib(16)
+
+## -----------------------------------------------------------------------------
+t(sapply(17:30, counted_fib))
+
+## ----eval=FALSE---------------------------------------------------------------
+#  fib <- memo(cache=lru_cache(5000), function () {...})
 
