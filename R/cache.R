@@ -17,20 +17,6 @@ memo <- function(fn, cache=lru_cache(5000), key=hybrid_key, ...) {
   key(fn, cache, ...)
 }
 
-#' Report cache statistics.
-#'
-#' @param fn A memoized function that was created by \code{\link{memo}}.
-#' @return A list with labels "size", "used", "hits", "misses", "expired"
-#' counting the number of slots in the cache, the number of slots currently
-#' used, the number of times a previous result was recalled, a new result was
-#' recorded, and a result was dropped.
-#' @export
-cache_stats <- function(fn) {
-  hitdata <- mget(c("size", "used", "hits", "misses", "expired"),
-                  environment(environment(fn)$cache))
-  as.list(hitdata)
-}
-
 #' Strategies for caching items.
 #'
 #' The function \code{\link{memo}} accepts an argument `key` which
@@ -79,7 +65,7 @@ pointer_key <- function(fn, cache) {
 #' This may use two cache slots per result.
 #' @param digest A digest function to use.
 #' @rdname strategies
-hybrid_key <- function(fn, cache, digest=digest::digest) {
+hybrid_key <- function(fn, cache, digest=function(x) digest::digest(x, "md5")) {
   delayedAssign("fn_digest", digest(fn))
   function(...) {
     l = list(...)
